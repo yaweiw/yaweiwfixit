@@ -1,0 +1,23 @@
+﻿@model ASPNETMVC.Models.Customer
+
+@{
+    ViewBag.Title = "DisplayCustomer";
+}
+
+<h2>DisplayCustomer</h2>
+
+<body>
+    <div>
+        The customer id is @Model.Id <br />
+
+        The customer Code is @Model.CustomerCode <br />
+        @{ var message = "";}
+        @{ if (Model.Amount > 100) {
+                message = "This is a priveleged customer";
+          } else {
+                message = "This is a normal customer";
+          }
+        }
+        @message
+    </div>
+</body>
