@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionMethod", "Extensio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildWorkerAsync", "BuildWorkerAsync\BuildWorkerAsync.csproj", "{7D0BE797-DE95-4F50-AD85-CDA6A6FCBF74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attribute", "Attribute\Attribute.csproj", "{13EC2DB1-A3C3-4746-9FB4-A7D57EB376DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableStorageAccessorGeneric", "GenericMethod\TableStorageAccessorGeneric.csproj", "{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{7D0BE797-DE95-4F50-AD85-CDA6A6FCBF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D0BE797-DE95-4F50-AD85-CDA6A6FCBF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D0BE797-DE95-4F50-AD85-CDA6A6FCBF74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13EC2DB1-A3C3-4746-9FB4-A7D57EB376DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EC2DB1-A3C3-4746-9FB4-A7D57EB376DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EC2DB1-A3C3-4746-9FB4-A7D57EB376DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EC2DB1-A3C3-4746-9FB4-A7D57EB376DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
