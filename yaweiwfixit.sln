@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attribute", "Attribute\Attr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableStorageAccessorGeneric", "GenericMethod\TableStorageAccessorGeneric.csproj", "{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTDynMethod", "DTDynMethod\DTDynMethod.csproj", "{77C05C90-385F-4061-A377-D713F7CC382A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA3EC53B-D8AE-4363-9DD6-B1875142D40B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C05C90-385F-4061-A377-D713F7CC382A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C05C90-385F-4061-A377-D713F7CC382A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C05C90-385F-4061-A377-D713F7CC382A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C05C90-385F-4061-A377-D713F7CC382A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -72,16 +72,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMyTableEntity.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="StorageHelper.cs" />
+    <Compile Include="TableEntityAdapter.cs" />
     <Compile Include="TableEntity\BuildTable.cs" />
     <Compile Include="TableEntity\CommitTable.cs" />
     <Compile Include="ITableAccessor.cs" />
-    <Compile Include="ITableEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableEntity\PushTable.cs" />

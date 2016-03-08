@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace TableStorageAccessorGeneric
 {
@@ -13,6 +14,9 @@ namespace TableStorageAccessorGeneric
             Console.WriteLine(committableaccessor.TableName);
             ITableAccessor<PushTable> pushtableaccessor = factory.CreateTableAccessor<PushTable>();
             Console.WriteLine(pushtableaccessor.TableName);
+
+            BuildTable buildtableinstance = new BuildTable();
+            buildtableaccessor.InsertOrUpdateAsync(buildtableinstance).Wait();
         }
     }
 }

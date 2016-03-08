@@ -3,19 +3,25 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage;
 using System.Collections.Generic;
+using TableStorageAccessorGeneric;
+using System.Net;
 
 namespace TableStorageAccessorGeneric
 {
-    internal class TableAccessor<T> : ITableAccessor<T> where T : class, ITableEntity, new()
+    internal class TableAccessor<T> : ITableAccessor<T> where T : class, IMyTableEntity, new()
     {
         private TableAccessorFactory tableAccessorFactory;
 
         private readonly string tableName;
 
+        protected CloudTable Table { get; private set; }
+
         public TableAccessor(TableAccessorFactory _factor, Type _typeinfo)
         {
             tableAccessorFactory = _factor;
             tableName = _typeinfo.Name;
+            Table = StorageHelper.tableClient.GetTableReference(tableName);
+            Table.CreateIfNotExists();
         }
 
         public string TableName
@@ -43,9 +49,32 @@ namespace TableStorageAccessorGeneric
                 });
         }
 
-        private Task<bool> ModifyAsync(Func<Microsoft.WindowsAzure.Storage.Table.ITableEntity, TableOperation> insertOrReplace, T entity, OperationContext operationContext)
+        private async Task<bool> ModifyAsync(Func<TableEntityAdapter<T>, TableOperation> insertOrReplace, T entity, OperationContext operationContext = null)
         {
-            StorageHelper.tableClient
+            try
+            {
+                var result = await Table.ExecuteAsync(insertOrReplace(new TableEntityAdapter<T>(entity)), null, operationContext);
+                if (result.HttpStatusCode >= 200 && result.HttpStatusCode < 300) return true;
+                else return false;
+            }
+            catch (StorageException ex)
+            {
+                var innerEx = ex.InnerException as WebException;
+                if (innerEx != null)
+                {
+                    var resp = innerEx.Response as HttpWebResponse;
+                    if (resp != null)
+                    {
+                        // Conflict: 409, PreconditionFailed: 412
+                        if (resp.StatusCode == HttpStatusCode.Conflict || resp.StatusCode == HttpStatusCode.PreconditionFailed)
+                        {
+                            resp.Dispose();
+                            return false;
+                        }
+                    }
+                }
+                throw;
+            }
         }
     }
 }

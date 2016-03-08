@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TableStorageAccessorGeneric
 {
     public interface ITableAccessor<T>
-        where T: class, ITableEntity, new()
+        where T: class, new()
     {
         string TableName { get; }
         Task<bool> InsertOrUpdateAsync(T entity);

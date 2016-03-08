@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,49 +7,25 @@ using System.Threading.Tasks;
 
 namespace TableStorageAccessorGeneric
 {
-    public class BuildTable : ITableEntity
+    public class BuildTable : IMyTableEntity
     {
         public BuildTable()
         {
-
-        }
-        public string ETag
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            PartitionKey = @"43fdea24-2538-3bc0-7c1e-539b16ad9e4e";
+            RowKey = @"201602020906316936-live";
+            ETag = @"buildtableetagvalue";
+            Timestamp = DateTimeOffset.Now;
+            Attr = @"attribute";
         }
 
-        public string PartitionKey
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public string ETag { get; set; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string PartitionKey { get; set; }
 
-        public string RowKey
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public string RowKey { get; set; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public DateTimeOffset Timestamp { get; set; }
+
+        public string Attr { get; set; }
     }
 }
