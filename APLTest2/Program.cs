@@ -25,7 +25,7 @@ namespace APLTest2
             return 1;
         }
 
-        static async void M1()
+        static async Task M1()
         {
             Console.WriteLine("2 " + System.Threading.Thread.CurrentThread.ManagedThreadId);
             Task<int> m2task = M2();
@@ -39,17 +39,18 @@ namespace APLTest2
         //
         static void Main(string[] args)
         {
-            Console.WriteLine("1 " + System.Threading.Thread.CurrentThread.ManagedThreadId);
-            // case 1:
-            M1();
-            /* case 2:
-            Task t = M1();
-            t.Wait();
-            */
-            Console.WriteLine("5 " + System.Threading.Thread.CurrentThread.ManagedThreadId);
-            // works like a event handler fire and forget
-            // control returns here immediately
-            Console.ReadLine();
+            while (Console.ReadLine() != "e")
+            {
+                Console.WriteLine("1 " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+                // case 1:
+                // M1();
+                // case 2:
+                Task t = M1();
+                t.Wait();
+                Console.WriteLine("5 " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+                // works like a event handler fire and forget
+                // control returns here immediately
+            }
         }
     }
 }
