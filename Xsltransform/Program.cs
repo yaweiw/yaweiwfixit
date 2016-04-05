@@ -9,27 +9,27 @@ namespace Xsltransform
         static XslCompiledTransform staticXslt = new XslCompiledTransform();
         static void init()
         {
-            staticXslt.Load(@"C:\Work\tests\yaweiwfixit\Xsltransform\output.xsl");
+            staticXslt.Load(@"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\2\output.xsl");
         }
         static void transform()
         {
             // Load the style sheet.
             XslCompiledTransform xslt = new XslCompiledTransform();
-            xslt.Load(@"C:\Work\tests\yaweiwfixit\Xsltransform\output.xsl");
+            xslt.Load(@"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\output.xsl");
 
             // Execute the transform and output the results to a file.
-            xslt.Transform(@"C:\Work\tests\yaweiwfixit\Xsltransform\books.xml", @"C:\Work\tests\yaweiwfixit\Xsltransform\books.html");
+            xslt.Transform(@"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\books.xml", @"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\books.html");
         }
 
         static void staticTransform()
         {
-            staticXslt.Transform(@"C:\Work\tests\yaweiwfixit\Xsltransform\books.xml", @"C:\Work\tests\yaweiwfixit\Xsltransform\books.html");
+            staticXslt.Transform(@"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\2\books.xml", @"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\2\books.html");
         }
         static void Main(string[] args)
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            for(int i = 0; i<1000; i++)
+            for(int i = 0; i<2000; i++)
             {
                 transform();
             }
@@ -52,7 +52,7 @@ namespace Xsltransform
             }
             stopWatch2.Stop();
             // Get the elapsed time as a TimeSpan value.
-            TimeSpan ts2 = stopWatch.Elapsed;
+            TimeSpan ts2 = stopWatch2.Elapsed;
 
             // Format and display the TimeSpan value.
             string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
