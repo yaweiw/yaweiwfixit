@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNETMVC", "ASPNETMVC\ASPNETMVC.csproj", "{B8832720-6E70-4BCE-95F9-5BD399E40F5F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNETMVC.Tests", "ASPNETMVC.Tests\ASPNETMVC.Tests.csproj", "{AD3CC987-5834-49EA-BD11-05463BD55558}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APLTest", "APLTest\APLTest.csproj", "{83F7829A-388D-4D3B-B881-BB21FA06C36F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObservableCollection", "ObservableCollection\ObservableCollection.csproj", "{60695CAF-CEE1-4176-AFE4-B35A5369CF4B}"
@@ -41,14 +37,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B8832720-6E70-4BCE-95F9-5BD399E40F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8832720-6E70-4BCE-95F9-5BD399E40F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8832720-6E70-4BCE-95F9-5BD399E40F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8832720-6E70-4BCE-95F9-5BD399E40F5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD3CC987-5834-49EA-BD11-05463BD55558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD3CC987-5834-49EA-BD11-05463BD55558}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD3CC987-5834-49EA-BD11-05463BD55558}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD3CC987-5834-49EA-BD11-05463BD55558}.Release|Any CPU.Build.0 = Release|Any CPU
 		{83F7829A-388D-4D3B-B881-BB21FA06C36F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{83F7829A-388D-4D3B-B881-BB21FA06C36F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83F7829A-388D-4D3B-B881-BB21FA06C36F}.Release|Any CPU.ActiveCfg = Release|Any CPU
