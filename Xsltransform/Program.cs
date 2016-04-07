@@ -40,9 +40,9 @@ namespace Xsltransform
 
     class Program
     {
-        static string stylesheetUri = @"C:\Work\tests\yaweiwfixit\Xsltransform\ReportTransform\OnlineBuildReport.xsl";
-        static string logFilePath = @"C:\Work\tests\yaweiwfixit\Xsltransform\ReportTransform\workflow_report.txt";
-        static string resultsFile = @"C:\Work\tests\yaweiwfixit\Xsltransform\ReportTransform\output.html";
+        static string stylesheetUri = @"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\ReportTransform\OnlineBuildReport.xsl";
+        static string logFilePath = @"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\ReportTransform\workflow_report.txt";
+        static string resultsFile = @"C:\Users\yaweiw\Source\Repos\yaweiwfixit\Xsltransform\ReportTransform\output.html";
         static ConcurrentDictionary<string, XslCompiledTransform> _xslTransforms = new ConcurrentDictionary<string, XslCompiledTransform>();
 
         static XslCompiledTransform GetXslTransform()
