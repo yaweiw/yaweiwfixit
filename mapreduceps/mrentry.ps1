@@ -14,7 +14,7 @@ if (!$azureEnv)
 }
 
 $azureRMEnv = Get-Module AzureRM
-if (!$azureRMEnv)
+if (!$azureRMEnv)   
 {
     Write-Host "Import-Module AzureRM"
     Import-Module AzureRM
