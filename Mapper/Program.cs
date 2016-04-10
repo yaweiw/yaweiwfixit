@@ -19,7 +19,7 @@ namespace Mapper
             string line;
             while ((line = Console.ReadLine()) != null)
             {
-                Console.WriteLine(line);
+                Console.WriteLine("<TD>" + line + "</TD>");
             }
         }
     }

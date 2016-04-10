@@ -12,7 +12,6 @@ namespace Reducer
         static void Main(string[] args)
         {
             string line;
-            var count = 0;
 
             if (args.Length > 0)
             {
@@ -21,9 +20,8 @@ namespace Reducer
 
             while ((line = Console.ReadLine()) != null)
             {
-                count += line.Count(cr => (cr == ' ' || cr == '\n'));
+                Console.WriteLine(line);
             }
-            Console.WriteLine(count);
         }
     }
 }
