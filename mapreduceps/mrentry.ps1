@@ -32,6 +32,20 @@ $clusterName = "workflowreportprocessor"             # HDInsight cluster name
 Write-Host "Select-AzureRmSubscription -SubscriptionName $subscriptionName"
 Select-AzureRmSubscription -SubscriptionName $subscriptionName
 
+# Get the job output
+$cluster = Get-AzureRmHDInsightCluster -ResourceGroupName $resourceGroupName -ClusterName $clusterName
+$defaultStorageAccount = $cluster.DefaultStorageAccount -replace '.blob.core.windows.net'
+$defaultStorageAccountKey = Get-AzureRmStorageAccountKey -ResourceGroupName $resourceGroupName -Name $defaultStorageAccount |  %{ $_.Key1 }
+$defaultStorageContainer = $cluster.DefaultStorageContainer
+
+$ctx = New-AzureStorageContext -StorageAccountName $defaultStorageAccount -StorageAccountKey $defaultStorageAccountKey
+
+$blobs = Get-AzureStorageBlob -Blob output* -Container "workflowreportprocessor" -Context $ctx -ErrorAction SilentlyContinue 
+
+if($blobs)
+{
+    $blobs | % {Remove-AzureStorageBlob -Blob $_.Name -Container workflowreportprocessor -Context $ctx}
+}
 
 # Define the MapReduce job
 $mrJobDefinition = New-AzureRmHDInsightStreamingMapReduceJobDefinition `
@@ -39,13 +53,12 @@ $mrJobDefinition = New-AzureRmHDInsightStreamingMapReduceJobDefinition `
                         -Mapper "Mapper.exe" `
                         -Reducer "Reducer.exe" `
                         -InputPath "/workflow_report_el.txt" `
-                        -OutputPath "/output"  
+                        -OutputPath "/output" `
 
 # Submit the job and wait for job completion
 $user = "admin"
 $pwd = ConvertTo-SecureString –String "Password01!" –AsPlainText -Force
 $cred = New-Object –TypeName System.Management.Automation.PSCredential –ArgumentList $user, $pwd
-
 
 Write-Host "Start-AzureRmHDInsightJob"
 $mrJob = Start-AzureRmHDInsightJob `

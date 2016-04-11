@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "Mapper\Mapper.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reducer", "Reducer\Reducer.csproj", "{E165721F-9D97-4B50-A4F3-E257E862058D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperTests", "MapperTests\MapperTests.csproj", "{D361448B-AF84-4242-AF9D-658895C14B97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reader", "Reader\Reader.csproj", "{8110566E-6D8E-4657-B1AD-3C5997AAA359}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +115,14 @@ Global
 		{E165721F-9D97-4B50-A4F3-E257E862058D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E165721F-9D97-4B50-A4F3-E257E862058D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E165721F-9D97-4B50-A4F3-E257E862058D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D361448B-AF84-4242-AF9D-658895C14B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D361448B-AF84-4242-AF9D-658895C14B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D361448B-AF84-4242-AF9D-658895C14B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D361448B-AF84-4242-AF9D-658895C14B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8110566E-6D8E-4657-B1AD-3C5997AAA359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8110566E-6D8E-4657-B1AD-3C5997AAA359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8110566E-6D8E-4657-B1AD-3C5997AAA359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8110566E-6D8E-4657-B1AD-3C5997AAA359}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

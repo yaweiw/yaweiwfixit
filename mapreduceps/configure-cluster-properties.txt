@@ -1,0 +1,9 @@
+# YARN Configuration
+yarn-site.xml, yarn.nodemanager.resource.memory-mb, 8192
+yarn-site.xml, yarn.scheduler.minimum-allocation-mb, 2048
+ 
+# MR Configurations
+mapred-site.xml, mapreduce.map.memory.mb, 2048
+mapred-site.xml, mapreduce.reduce.memory.mb, 4096
+mapred-site.xml, mapreduce.map.java.opts, -Xmx1536m
+mapred-site.xml, mapreduce.reduce.java.opts, -Xmx3072m
