@@ -9,7 +9,7 @@ namespace Mapper
 {
     public static class ReportMapper
     {
-        public static string map(string input, string pattern)
+        public static KeyValuePair<string,string> map(string input, string pattern)
         {
             try
             {
@@ -26,11 +26,11 @@ namespace Mapper
                 htmlBuilder.Append(@"<td></td>");
                 htmlBuilder.Append(@"<td>" + groups["dt"].Value + @"</td>");
                 htmlBuilder.Append(@"</tr>");
-                return htmlBuilder.ToString();
+                return new KeyValuePair<string, string>(groups["sev"].Value, htmlBuilder.ToString());
             }
             catch (Exception e)
             {
-                return e.Message + Environment.NewLine + e.StackTrace;
+                return new KeyValuePair<string, string>(e.Message, e.StackTrace);
             }
         }
     }

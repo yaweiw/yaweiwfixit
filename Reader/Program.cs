@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -164,6 +165,15 @@ div.WordSection1 {
             string footer = @"</table><br><a href="">Build Raw Log</a></body></html>";
             Stopwatch st = new Stopwatch();
             st.Start();
+            Dictionary<string, string> sev_line = new Dictionary<string, string>();
+
+            while ((line = file.ReadLine()) != null)
+            {
+                var ret = ReportMapper.map(line, pattern);
+                if(sev_line.Contains(ret)) sev_line.Add(ret.Key, ret.Value);
+            }
+            //Sort By descending
+            var sortedDict = (from entry in sev_line orderby entry.Key descending select entry.Value);
             using (System.IO.StreamWriter output = new System.IO.StreamWriter(@"C:\Work\output.html"))
             {
                 output.WriteLine(header);
@@ -171,10 +181,9 @@ div.WordSection1 {
                 output.WriteLine(headerend);
                 output.WriteLine(title);
                 output.WriteLine(tableheader);
-
-                while ((line = file.ReadLine()) != null)
+                foreach(var en in sortedDict)
                 {
-                    output.WriteLine(ReportMapper.map(line, pattern));
+                    output.WriteLine(en);
                 }
                 output.WriteLine(footer);
             }
