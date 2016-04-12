@@ -1,6 +1,7 @@
 ﻿using Mapper;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,9 @@ namespace Reader
 
             // Read the file and display it line by line.
             System.IO.StreamReader file =
-               new System.IO.StreamReader(@"D:\temp\workflow_report_s.txt");
-            string pattern = @"{""message\W+(?<msg>.+)""\W+source\W+(?<src>\w+).+message_severity.+(?<sev>[0-3]{1})\W+date_time\W+(?<dt>.+)""}";
+               new System.IO.StreamReader(@"C:\Work\l.txt");
+            /* {"message\W+(?<msg>.+)\W+source\W+(?<src>\w+).+message_severity.+(?<sev>[0-3]{1}|[EWIV]{1}[rane]{1}[rf]{1}[nob]{1}[rio]?[ns]?[ge]?)\W+date_time\W+(?<dt>.+)"} */
+            string pattern = @"{""message\W+(?<msg>.+)""\W+source\W+(?<src>\w+).+message_severity.+(?<sev>[0-3]{1}|[EWIV]{1}[rane]{1}[rf]{1}[nob]{1}[rio]?[ns]?[ge]?)\W+date_time\W+(?<dt>.+)""}";
             string header = @"<html><head><META http-equiv=""Content - Type"" content=""text / html; charset = utf - 8""><meta http-equiv=""Content - Type"" content=""text / html; charset = windows - 1252"">";
             string style = @"    <style>
           /* Font Definitions */
@@ -160,19 +162,31 @@ div.WordSection1 {
                                    <td><p class=""MsoNormal""><b><span style = ""color: white"" > Line </span></b></p></td>
                                    <td><p class=""MsoNormal""><b><span style = ""color: white"" > Time </span></b></p></td></tr>";
             string footer = @"</table><br><a href="">Build Raw Log</a></body></html>";
-
-            Console.WriteLine(header);
-            Console.WriteLine(style);
-            Console.WriteLine(headerend);
-            Console.WriteLine(title);
-            Console.WriteLine(tableheader);
-            while ((line = file.ReadLine()) != null)
+            Stopwatch st = new Stopwatch();
+            st.Start();
+            using (System.IO.StreamWriter output = new System.IO.StreamWriter(@"C:\Work\output.html"))
             {
-                Console.WriteLine(ReportMapper.map(line, pattern).htmlBuilder.ToString());
+                output.WriteLine(header);
+                output.WriteLine(style);
+                output.WriteLine(headerend);
+                output.WriteLine(title);
+                output.WriteLine(tableheader);
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    output.WriteLine(ReportMapper.map(line, pattern));
+                }
+                output.WriteLine(footer);
             }
-            Console.WriteLine(footer);
             file.Close();
+            st.Stop();
+            TimeSpan ts = st.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+
             // Suspend the screen.
+            Console.WriteLine("Done! {0}", elapsedTime);
             Console.ReadLine();
 
         }
