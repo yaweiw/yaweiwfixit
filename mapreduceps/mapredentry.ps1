@@ -53,7 +53,7 @@ $mrJobDefinition = New-AzureRmHDInsightStreamingMapReduceJobDefinition `
                         -Files "/Mapper.exe","/Reducer.exe" `
                         -Mapper "Mapper.exe" `
                         -Reducer "Reducer.exe" `
-                        -InputPath "/workflow_report_m.txt" `
+                        -InputPath "/workflow_report_s.txt" `
                         -OutputPath "/output" `
 
 # Submit the job and wait for job completion
