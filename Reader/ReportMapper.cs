@@ -26,7 +26,7 @@ namespace Mapper
                 htmlBuilder.Append(@"<td></td>");
                 htmlBuilder.Append(@"<td>" + groups["dt"].Value + @"</td>");
                 htmlBuilder.Append(@"</tr>");
-                return new KeyValuePair<string, string>(groups["sev"].Value, htmlBuilder.ToString());
+                return new KeyValuePair<string, string>(htmlBuilder.ToString(), groups["sev"].Value);
             }
             catch (Exception e)
             {

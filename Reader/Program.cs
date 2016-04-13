@@ -169,11 +169,19 @@ div.WordSection1 {
 
             while ((line = file.ReadLine()) != null)
             {
+                //key is msg, value is msg_sev
                 var ret = ReportMapper.map(line, pattern);
-                if(sev_line.Contains(ret)) sev_line.Add(ret.Key, ret.Value);
+                if(!sev_line.ContainsKey(ret.Key)) sev_line.Add(ret.Key, ret.Value);
             }
+            Stopwatch st1 = new Stopwatch();
+            st1.Start();
             //Sort By descending
-            var sortedDict = (from entry in sev_line orderby entry.Key descending select entry.Value);
+            var query =
+                from entry in sev_line
+                group entry by entry.Value into newGroup
+                orderby newGroup.Key[newGroup.Key.Length-1] descending
+                select newGroup;
+            st1.Stop();
             using (System.IO.StreamWriter output = new System.IO.StreamWriter(@"C:\Work\output.html"))
             {
                 output.WriteLine(header);
@@ -181,9 +189,10 @@ div.WordSection1 {
                 output.WriteLine(headerend);
                 output.WriteLine(title);
                 output.WriteLine(tableheader);
-                foreach(var en in sortedDict)
+                foreach(var item in query)
                 {
-                    output.WriteLine(en);
+                    foreach(var pair in item)
+                    output.WriteLine(pair.Key);
                 }
                 output.WriteLine(footer);
             }
@@ -193,9 +202,12 @@ div.WordSection1 {
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
-
+            TimeSpan ts1 = st1.Elapsed;
+            string elapsedTime1 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+    ts1.Hours, ts1.Minutes, ts1.Seconds,
+    ts1.Milliseconds / 10);
             // Suspend the screen.
-            Console.WriteLine("Done! {0}", elapsedTime);
+            Console.WriteLine("Done! {0}:{1}", elapsedTime,elapsedTime1);
             Console.ReadLine();
 
         }
