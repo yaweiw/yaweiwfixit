@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace HtmlGenerator.Model
 {
-    public class BuildSummaryTrEntry : TrModelBase
+    public class BuildSummaryTrModel : TrModelBase
     {
         public string TdCont { get; set; }
+        public BuildSummaryTrModel(string tdcont) : base("BuildSummaryTrModel")
+        {
+            TdCont = tdcont;
+        }
     }
 }

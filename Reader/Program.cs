@@ -18,8 +18,8 @@ namespace Reader
             // Read the file and display it line by line.
             System.IO.StreamReader file =
                new System.IO.StreamReader(@"C:\Work\l.txt");
-            /* {"message\W+(?<msg>.+)\W+source\W+(?<src>\w+).+message_severity.+(?<sev>[0-3]{1}|[EWIV]{1}[rane]{1}[rf]{1}[nob]{1}[rio]?[ns]?[ge]?)\W+date_time\W+(?<dt>.+)"} */
-            string pattern = @"{""message\W+(?<msg>.+)""\W+source\W+(?<src>\w+).+message_severity.+(?<sev>[0-3]{1}|[EWIV]{1}[rane]{1}[rf]{1}[nob]{1}[rio]?[ns]?[ge]?)\W+date_time\W+(?<dt>.+)""}";
+            /* {"message\W+"(?<msg>.+)"\W+source\W+"(?<src>.+)"\W+file\W+:(?<file>.+),\W+line\W+:(?<line>.+),\W+message_severity.+(?<sev>[0-3]{1}|[EWIV]{1}[rane]{1}[rf]{1}[nob]{1}[rio]?[ns]?[ge]?)\W+date_time\W+(?<dt>.+)"} */
+            string pattern = @"{""message\W+""(?<msg>.+)""\W+source\W+""(?<src>.+)""\W+file\W+:(?<file>.+),\W+line\W+:(?<line>.+),\W+message_severity.+(?<sev>[0-3]{1}|[EWIV]{1}[rane]{1}[rf]{1}[nob]{1}[rio]?[ns]?[ge]?)\W+date_time\W+(?<dt>.+)""}";
             string header = @"<html><head><META http-equiv=""Content - Type"" content=""text / html; charset = utf - 8""><meta http-equiv=""Content - Type"" content=""text / html; charset = windows - 1252"">";
             string style = @"    <style>
           /* Font Definitions */

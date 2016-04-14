@@ -43,12 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildSummaryHtmlHolder.cs" />
-    <Compile Include="HtmlGenerator.cs" />
-    <Compile Include="HtmlGeneratorHelper.cs" />
-    <Compile Include="HtmlHolder.cs" />
-    <Compile Include="IHtmlGenerator.cs" />
-    <Compile Include="IHtmlHolder.cs" />
+    <Compile Include="BuildDetailsHtmlPlaceHolder.cs" />
+    <Compile Include="BuildFilesHtmlPlaceHolder.cs" />
+    <Compile Include="BuildSummaryHtmlPlaceHolder.cs" />
+    <Compile Include="ReportGenerator.cs" />
+    <Compile Include="ContentPlaceHolderBase.cs" />
+    <Compile Include="IContentPlaceHolder.cs" />
     <Compile Include="Model\BuildDetailsTrModel.cs" />
     <Compile Include="Model\BuildFilesTrModel.cs" />
     <Compile Include="Model\BuildSummaryTrModel.cs" />
@@ -59,6 +59,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

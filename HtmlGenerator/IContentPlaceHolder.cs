@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace HtmlGenerator
 {
-    public interface IHtmlHolder
+    public interface IContentPlaceHolder
     {
         StringBuilder HtmlTableGenerator();
     }

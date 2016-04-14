@@ -1,12 +1,10 @@
-﻿using System;
+﻿using HtmlGenerator.Model;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HtmlGenerator
 {
-    public class HtmlGenerator : IHtmlGenerator
+    public class ReportGenerator
     {
         private readonly StringBuilder htmlheaderbegintag;
 
@@ -16,9 +14,15 @@ namespace HtmlGenerator
 
         private readonly StringBuilder htmlbodyendtag;
 
-        private readonly StringBuilder reportheader;
+        private readonly StringBuilder htmlreportheader;
 
-        private BuildSummaryHtmlHolder BuildSummary; 
+        private readonly StringBuilder htmlrawlog;
+
+        private readonly BuildSummaryHtmlPlaceHolder htmlbuildsummary;
+
+        private readonly BuildFilesHtmlPlaceHolder htmlbuildfiles;
+
+        private readonly BuildDetailsHtmlPlaceHolder htmlbuilddetails;
         public StringBuilder HtmlHeaderBeginTag
         {
             get { return htmlheaderbegintag; }
@@ -35,12 +39,82 @@ namespace HtmlGenerator
         {
             get { return htmlbodyendtag; }
         }
-        public StringBuilder ReportHeader
+        public StringBuilder HtmlReportHeader
         {
-            get { return reportheader; }
+            get { return htmlreportheader; }
         }
-        public HtmlGenerator()
+        public StringBuilder HtmlRawLog
         {
+            get { return htmlrawlog; }
+        }
+        public StringBuilder HtmlBuildSummary => (htmlbuildsummary == null) ? null : htmlbuildsummary.HtmlTableGenerator();
+        public StringBuilder HtmlBuildFiles => (htmlbuildfiles == null) ? null : htmlbuildfiles.HtmlTableGenerator();
+        public StringBuilder HtmlBuildDetails => (htmlbuilddetails == null) ? null : htmlbuilddetails.HtmlTableGenerator();
+        public ReportGenerator()
+        {
+            string buildsumhead = @"<P class=""MsoNormal""><SPAN style=""font-size: 14pt; ""><B>Build Summary</B></SPAN></P>";
+            List<BuildSummaryTrModel> summary = new List<BuildSummaryTrModel>();
+            summary.Add(new BuildSummaryTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/tree/hp-cleanup"">win-cpub-itpro-docs (hp-cleanup) </A>"));
+            summary.Add(new BuildSummaryTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/commit/e074ca48d307e14e4590666cee8f6b116d15319a"">e074ca48d307e14e4590666cee8f6b116d15319a</A>"));
+            summary.Add(new BuildSummaryTrModel(@"<A href=""mailto: heatherpoulsen@users.noreply.github.com"">heatherpoulsen@users.noreply.github.com</A>"));
+            summary.Add(new BuildSummaryTrModel(@"0"));
+            summary.Add(new BuildSummaryTrModel(@"0"));
+            summary.Add(new BuildSummaryTrModel(@"2016-04-12 23:19:36"));
+            summary.Add(new BuildSummaryTrModel(@"00:03:56"));
+
+            htmlbuildsummary = new BuildSummaryHtmlPlaceHolder(buildsumhead, summary.ConvertAll<TrModelBase>(x => (TrModelBase)x));
+
+            string buildfileshead = @"<P class=""MsoNormal""><SPAN style=""font-size: 14pt; ""><B><A name=""BuildFiles"">Build Files</A></B></SPAN></P>";
+            List<BuildFilesTrModel> fil = new List<BuildFilesTrModel>();
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">1browsers/edge/images/edge-emie-registrysitelist.png</A>","0","0","0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">2browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">3browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">4browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">5browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">6browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">7browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            fil.Add(new BuildFilesTrModel(@"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/browsers/edge/images/edge-emie-registrysitelist.png"">8browsers/edge/images/edge-emie-registrysitelist.png</A>", "0", "0", "0"));
+            htmlbuildfiles = new BuildFilesHtmlPlaceHolder(buildfileshead, fil.ConvertAll<TrModelBase>(x => (TrModelBase)x));
+
+            string builddethead = @"<P class=""MsoNormal""><SPAN style=""font-size: 14pt;""><B>Build Details</B></SPAN></P>";
+            List<BuildDetailsTrModel> det = new List<BuildDetailsTrModel>();
+            det.Add(new BuildDetailsTrModel(@"<A id="" &#10;#@Info&#10;"">Info</A>",
+                @"1Plug-in directory: W:\lluwccfd.1cl\sourW:\lluwccfd.1cl\source\.optemp\packages\docfx.msbuild.1.8.0-alpha-0031-g2a7dee7\tools\plugins_zplfb4q0.kc2\plugins, configuration file: W:\lluwccfd.1cl\source\.optemp\packages\docfx.msbuild.1.8.0-alpha-0031-g2a7dee7\tools\plugins_zplfb4q0.kc2\plugins\docfx.plugins.config",
+                @"",
+                @"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/#L"">xx</A>",
+                @"",
+                @"2016-04-12T23:16:27.3196693Z"
+                ));
+            det.Add(new BuildDetailsTrModel(@"<A id="" &#10;#@Info&#10;"">Info</A>",
+                @"2Plug-in directory: W:\lluwccfd.1cl\sour",
+                @"",
+                @"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/#L"">xx</A>",
+                @"",
+                @"2016-04-12T23:16:27.3196693Z"
+                ));
+            det.Add(new BuildDetailsTrModel(@"<A id="" &#10;#@Info&#10;"">Info</A>",
+                @"3Plug-in directory: W:\lluwccfd.1cl\sour",
+                @"",
+                @"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/#L"">xx</A>",
+                @"",
+                @"2016-04-12T23:16:27.3196693Z"
+                ));
+            det.Add(new BuildDetailsTrModel(@"<A id="" &#10;#@Info&#10;"">Info</A>",
+                @"4Plug-in directory: W:\lluwccfd.1cl\sour",
+                @"",
+                @"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/#L"">xx</A>",
+                @"",
+                @"2016-04-12T23:16:27.3196693Z"
+                ));
+            det.Add(new BuildDetailsTrModel(@"<A id="" &#10;#@Info&#10;"">Info</A>",
+                @"5Plug-in directory: W:\lluwccfd.1cl\sour",
+                @"",
+                @"<A href=""https://github.com/Microsoft/win-cpub-itpro-docs/blob/e074ca48d307e14e4590666cee8f6b116d15319a/#L"">xx</A>",
+                @"",
+                @"2016-04-12T23:16:27.3196693Z"
+                ));
+            htmlbuilddetails = new BuildDetailsHtmlPlaceHolder(builddethead, det.ConvertAll<TrModelBase>(x => (TrModelBase)x));
+
             htmlheaderbegintag = new StringBuilder();
             htmlheaderbegintag.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
             htmlheaderbegintag.Append("<HTML><HEAD><META content=\"IE=5.0000\" http-equiv=\"X-UA-Compatible\">");
@@ -75,9 +149,9 @@ namespace HtmlGenerator
             htmlheaderbegintag.Append("          mso-font-signature: -520092929 1073786111 9 0 415 0;");
             htmlheaderbegintag.Append("          }");
             htmlheaderbegintag.Append("          @font-face {");
-            htmlheaderbegintag.Append("          font-family: \"\@SimSun\";");
+            htmlheaderbegintag.Append("          font-family: \"\\@SimSun\";");
             htmlheaderbegintag.Append("          panose-1: 2 1 6 0 3 1 1 1 1 1;");
-            htmlheaderbegintag.Append("          mso-font-alt: \"\@Arial Unicode MS\";");
+            htmlheaderbegintag.Append("          mso-font-alt: \"\\@Arial Unicode MS\";");
             htmlheaderbegintag.Append("          mso-font-charset: 134;");
             htmlheaderbegintag.Append("          mso-generic-font-family: auto;");
             htmlheaderbegintag.Append("          mso-font-pitch: variable;");
@@ -164,17 +238,23 @@ namespace HtmlGenerator
             htmlbodybegintag.Append("<BODY lang=\"EN-US\" style=\"tab-interval: .5in;\" link=\"#0563c1\" vlink=\"#954f72\">");
 
             // Open Publishing Online Build Report
-            reportheader = new StringBuilder();
-            reportheader.Append("<P class=\"MsoNormal\"><SPAN style=\"font-size: 16pt;\"><B>Open Publishing Online Build Report</B></SPAN></P>");
-            reportheader.Append("<HR>");
-            reportheader.Append("<BR>");
+            htmlreportheader = new StringBuilder();
+            htmlreportheader.Append("<P class=\"MsoNormal\"><SPAN style=\"font-size: 16pt;\"><B>Open Publishing Online Build Report</B></SPAN></P>");
+            htmlreportheader.Append("<HR>");
+            htmlreportheader.Append("<BR>");
 
             // Build Summary
 
+            // Build Files
 
-            htmlbodybegintag = new StringBuilder();
-            htmlbodybegintag.Append("</BODY>");
+            // Build Details
 
+
+            htmlbodyendtag = new StringBuilder();
+            htmlbodyendtag.Append("</BODY>");
+
+            htmlrawlog = new StringBuilder();
+            htmlrawlog.Append(@"<BR><A href=""https://opbuildstoragesandbox2.blob.core.windows.net/report/2016%5C4%5C12%5Cc1bb9ee0-549c-27c2-888b-50d73cbfb6e8%5CCommit%5C201604122315356766-hp-cleanup%5Crawlog.txt""> Build Raw Log </A>");
             htmlheaderendtag = new StringBuilder();
             htmlheaderendtag.Append("</HTML>");
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HtmlGenerator.Model
 {
-    public class BuildDetailsTrEntry : TrModelBase
+    public class BuildDetailsTrModel : TrModelBase
     {
         public string Severity { get; set; }
         public string Message { get; set; }
@@ -14,18 +14,19 @@ namespace HtmlGenerator.Model
         public string File { get; set; }
         public string Line { get; set; }
         public string Time { get; set; }
-
-        public BuildDetailsTrEntry():this(null,null,null,null,null,null)
+        public BuildDetailsTrModel():this(null,null,null,null,null,null)
         { }
 
-        public BuildDetailsTrEntry(string severity,
+        public BuildDetailsTrModel(
+            string severity,
             string message,
             string source,
             string file,
             string line,
-            string time):base("BuildDetailsTrEntry")
+            string time):base("BuildDetailsTrModel")
         {
-            Severity = message;
+            Severity = severity;
+            Message = message;
             Source = source;
             File = file;
             Line = line;
