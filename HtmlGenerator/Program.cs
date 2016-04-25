@@ -4,6 +4,7 @@ using Microsoft.Azure; // Namespace for CloudConfigurationManager
 using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
 using Microsoft.WindowsAzure.Storage.Blob; // Namespace for Blob storage types
 using Microsoft.WindowsAzure.Storage.Auth;
+using System.Configuration;
 
 namespace HtmlGeneratorCS
 {
@@ -11,16 +12,18 @@ namespace HtmlGeneratorCS
     {
         static void Main(string[] args)
         {
-            string constr = @"DefaultEndpointsProtocol=https;AccountName=yaweiw;AccountKey=account-key";
+            string constr = @"DefaultEndpointsProtocol=https;AccountName=yaweiw;AccountKey=cshgCWFn9Z3drf06xj2zdTYLxR3pxZhuBHsm0HsWCl7PadTfS+xABmS/br0TJDQBaNPLxVFpE3b+6dpIbktq0A==";
             // Retrieve storage account from connection string.
-            StorageCrentials cre = new StorageCrentials();
-            CloudStorageAccount storageAccount = new CloudStorageAccount();
+            StorageCredentials cre = new StorageCredentials("yaweiw", @"cshgCWFn9Z3drf06xj2zdTYLxR3pxZhuBHsm0HsWCl7PadTfS+xABmS/br0TJDQBaNPLxVFpE3b+6dpIbktq0A==");
+            CloudStorageAccount storageAccount = new CloudStorageAccount(cre, true);
 
             // Create the blob client.
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             // Retrieve reference to a previously created container.
-            CloudBlobContainer container = blobClient.GetContainerReference("photos");
+            CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+            container.CreateIfNotExists();
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
 
             ReportGenerator rg = new ReportGenerator();
             using (Stream memorystream = new MemoryStream())
@@ -35,10 +38,9 @@ namespace HtmlGeneratorCS
                 writer.WriteLine(rg.HtmlBodyEndTag.ToString());
                 writer.WriteLine(rg.HtmlRawLog.ToString());
                 writer.WriteLine(rg.HtmlHeaderEndTag.ToString());
-                var blob = GetBlockBlobReference(path);
-                blob.Properties.ContentType = contentType ?? "application/octet-stream";
-                await blob.UploadFromStreamAsync(source);
 
+                blockBlob.Properties.ContentType = "application/octet-stream";
+                blockBlob.UploadFromStream(memorystream);
             }
         }
     }
