@@ -12,9 +12,8 @@ namespace HtmlGeneratorCS
     {
         static void Main(string[] args)
         {
-            string constr = @"DefaultEndpointsProtocol=https;AccountName=yaweiw;AccountKey=cshgCWFn9Z3drf06xj2zdTYLxR3pxZhuBHsm0HsWCl7PadTfS+xABmS/br0TJDQBaNPLxVFpE3b+6dpIbktq0A==";
             // Retrieve storage account from connection string.
-            StorageCredentials cre = new StorageCredentials("yaweiw", @"cshgCWFn9Z3drf06xj2zdTYLxR3pxZhuBHsm0HsWCl7PadTfS+xABmS/br0TJDQBaNPLxVFpE3b+6dpIbktq0A==");
+            StorageCredentials cre = new StorageCredentials("yaweiw", @"xx");
             CloudStorageAccount storageAccount = new CloudStorageAccount(cre, true);
 
             // Create the blob client.
