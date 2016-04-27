@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timer", "Timer\Timer.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetMd5HashedGuid", "GetMd5HashedGuid\GetMd5HashedGuid.csproj", "{F60794F8-3718-47B3-AC79-744B121184C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageComposer", "MessageComposer\MessageComposer.csproj", "{A3A4648D-25B4-442D-AD7C-9F787F2ED8D8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionMethod", "ExtensionMethod\ExtensionMethod.csproj", "{67637CA6-C514-4C92-807C-1B9425454A7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildWorkerAsync", "BuildWorkerAsync\BuildWorkerAsync.csproj", "{7D0BE797-DE95-4F50-AD85-CDA6A6FCBF74}"
@@ -69,10 +67,6 @@ Global
 		{F60794F8-3718-47B3-AC79-744B121184C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F60794F8-3718-47B3-AC79-744B121184C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F60794F8-3718-47B3-AC79-744B121184C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3A4648D-25B4-442D-AD7C-9F787F2ED8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3A4648D-25B4-442D-AD7C-9F787F2ED8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3A4648D-25B4-442D-AD7C-9F787F2ED8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3A4648D-25B4-442D-AD7C-9F787F2ED8D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67637CA6-C514-4C92-807C-1B9425454A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67637CA6-C514-4C92-807C-1B9425454A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67637CA6-C514-4C92-807C-1B9425454A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
