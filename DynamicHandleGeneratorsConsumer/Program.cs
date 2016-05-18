@@ -1,11 +1,13 @@
-﻿using System;
-using System.Reflection;
+﻿using DynamicMethodHandleGenerators;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using DynamicMethodHandleGenerators;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DTDynMethod
+namespace DynamicHandleGeneratorsConsumer
 {
-
     class Program
     {
         static void Main(string[] args)
@@ -16,7 +18,7 @@ namespace DTDynMethod
             stopWatch1.Start();
             for (int i = 9999999; i >= 0; i--)
             {
-                string ret1 = p.GetDetails();
+                p.GetDetails();
                 //p.Name = "a";
                 //p.Name = "b";
             }
@@ -28,12 +30,13 @@ namespace DTDynMethod
             Console.WriteLine("RunTime " + elapsedTime1);
 
             DynamicMethodHandle dmh = MethodCache.GetCachedMethodHandleByCacheKey(p, "GetDetails");
-            Func<object, object[], object> dm = dmh.DynamicMethod;
+            var dm = dmh.DynamicMethod;
             Stopwatch stopWatch2 = new Stopwatch();
             stopWatch2.Start();
+
             for (int i = 9999999; i >= 0; i--)
             {
-                string ret2 = dm(p, null);
+                dm(p, null);
                 //p.sth = "a";
                 //p.sth = "b";
             }
@@ -57,8 +60,6 @@ namespace DTDynMethod
 
 
             Console.ReadLine();
-
         }
-
     }
 }

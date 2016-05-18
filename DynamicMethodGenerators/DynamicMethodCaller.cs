@@ -152,7 +152,7 @@ namespace DynamicMethodHandleGenerators
             }
             try
             {
-                result = methodHandle.DynamicMethod(inParams);
+                result = methodHandle.DynamicMethod(obj, inParams);
             }
             catch (Exception ex)
             {

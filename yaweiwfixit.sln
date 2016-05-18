@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicHandleGenerators", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicHandleGeneratorsTests", "DynamicHandleGeneratorsTests\DynamicHandleGeneratorsTests.csproj", "{44B1E7D0-F87F-4117-AB19-B4B8383A2200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicHandleGeneratorsConsumer", "DynamicHandleGeneratorsConsumer\DynamicHandleGeneratorsConsumer.csproj", "{2B996B3C-9A86-4202-B49E-F718A569196D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,10 @@ Global
 		{44B1E7D0-F87F-4117-AB19-B4B8383A2200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44B1E7D0-F87F-4117-AB19-B4B8383A2200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44B1E7D0-F87F-4117-AB19-B4B8383A2200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B996B3C-9A86-4202-B49E-F718A569196D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B996B3C-9A86-4202-B49E-F718A569196D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B996B3C-9A86-4202-B49E-F718A569196D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B996B3C-9A86-4202-B49E-F718A569196D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

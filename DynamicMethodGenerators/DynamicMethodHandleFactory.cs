@@ -28,7 +28,7 @@ namespace DynamicMethodHandleGenerators
             return Expression.Lambda<Func<object>>(expBody).Compile();
         }
 
-        public static Func<object[], object> CreateMethod(MethodInfo method)
+        public static Func<object, object[], object> CreateMethod(MethodInfo method)
         {
             if (method == null)
                 throw new ArgumentNullException("method");
@@ -48,26 +48,39 @@ namespace DynamicMethodHandleGenerators
                     pi[x].ParameterType);
             }
 
+            // instance method
             Expression instance = Expression.Convert(targetExpression, method.DeclaringType);
-            Expression body = pi.Length > 0
+            Expression callExp = pi.Length > 0
               ? Expression.Call(instance, method, callParametrs)
               : Expression.Call(instance, method);
 
+            BlockExpression body = null;
+            LabelTarget returnTarget = Expression.Label(typeof(object));
+            
             if (method.ReturnType == typeof(void))
             {
-                var target = Expression.Label(typeof(object));
-                var nullRef = Expression.Constant(null);
+                Expression nullRef = Expression.Constant(null);
                 body = Expression.Block(
-                  body,
-                   Expression.Return(target, nullRef),
-                  Expression.Label(target, nullRef));
+                    callExp,
+                    Expression.Return(returnTarget, nullRef));
             }
-            else if (method.ReturnType.IsValueType)
+            else
             {
-                body = Expression.Convert(body, typeof(object));
+                body = Expression.Block(
+                    callExp,
+                    Expression.Convert(callExp, typeof(object)));
             }
 
-            return Expression.Lambda<Func<object[], object>>(
+            //var result = Expression.Lambda<Func<object, object[], object>>(
+            //  body,
+            //  targetExpression,
+            //  parametersExpression).Compile();
+
+            //Console.WriteLine("The expressions from the block expression:");
+            //foreach (var expr in body.Expressions)
+            //    Console.WriteLine(expr.ToString());
+
+            return Expression.Lambda<Func<object, object[], object>>(
               body,
               targetExpression,
               parametersExpression).Compile();

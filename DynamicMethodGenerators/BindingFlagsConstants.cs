@@ -4,7 +4,7 @@ namespace DynamicMethodHandleGenerators
 {
     public static class BindingFlagsConstants
     {
-        public const BindingFlags commonMethodFlags = BindingFlags.Public | BindingFlags.Static;
+        public const BindingFlags commonMethodFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
 
         public const BindingFlags allLevelFlags
           = BindingFlags.FlattenHierarchy

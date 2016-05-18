@@ -7,7 +7,7 @@ namespace DynamicMethodHandleGenerators
     public class DynamicMethodHandle
     {
         public string MethodName { get; private set; }
-        public Func<object[], object> DynamicMethod { get; private set; }
+        public Func<object, object[], object> DynamicMethod { get; private set; }
         public bool HasFinalArrayParam { get; private set; }
         public int MethodParamsLength { get; private set; }
         public Type FinalArrayElementType { get; private set; }
