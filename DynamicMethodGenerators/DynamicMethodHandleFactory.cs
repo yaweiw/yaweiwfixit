@@ -27,7 +27,6 @@ namespace DynamicMethodHandleGenerators
 
             return Expression.Lambda<Func<object>>(expBody).Compile();
         }
-
         public static Func<object, object[], object> CreateMethod(MethodInfo method)
         {
             if (method == null)
@@ -54,9 +53,9 @@ namespace DynamicMethodHandleGenerators
               ? Expression.Call(instance, method, callParametrs)
               : Expression.Call(instance, method);
 
-            BlockExpression body = null;
+            Expression body = null;
             LabelTarget returnTarget = Expression.Label(typeof(object));
-            
+
             if (method.ReturnType == typeof(void))
             {
                 Expression nullRef = Expression.Constant(null);
@@ -66,9 +65,10 @@ namespace DynamicMethodHandleGenerators
             }
             else
             {
-                body = Expression.Block(
-                    callExp,
-                    Expression.Convert(callExp, typeof(object)));
+                //body = Expression.Block(
+                //    callExp,
+                //    Expression.Convert(callExp, typeof(object)));
+                body = Expression.Convert(callExp, typeof(object));
             }
 
             //var result = Expression.Lambda<Func<object, object[], object>>(

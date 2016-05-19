@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace DynamicMethodHandleGenerators
 {
-    public class PropertyCache<T>
+    public static class PropertyCache<T>
     {
         private static ConcurrentDictionary<CacheKey, DynamicPropertyHandle<T>> propertyCache = new ConcurrentDictionary<CacheKey, DynamicPropertyHandle<T>>();
 
-        internal static DynamicPropertyHandle<T> GetCachedPropertyByCacheKey(string propertyName)
+        public static DynamicPropertyHandle<T> GetCachedPropertyByCacheKey(string propertyName)
         {
             Type type = typeof(T);
             var key = new CacheKey(type.FullName, propertyName, Utility.GetParameterTypes(null));
