@@ -19,7 +19,7 @@ namespace DynamicMethodGenerators
         public static Type[] GetParameterTypes(bool hasParameters, object[] parameters)
         {
             if (!hasParameters || parameters == null)
-                return new Type[] { };
+                return new Type[0];
 
             List<Type> result = new List<Type>();
 
