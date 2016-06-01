@@ -72,7 +72,7 @@
             string sc = GetDetails("abab", 'c'); 
             string cs = GetDetails('c' , "abab");
             Task mytask = new Task(() => Console.WriteLine("hi"));
-            System.Timers.Timer aTimer = new System.Timers.Timer();
+            Timer aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler((object source, ElapsedEventArgs e)=> Console.WriteLine("hi"));
             // Set the Interval to 5 seconds.
             aTimer.Interval = 500;
