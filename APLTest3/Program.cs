@@ -8,8 +8,41 @@ namespace APLTest3
 {
     class Program
     {
+        static async Task<int> TaskOfT_MethodAsync()
+        {
+            Task t = Task.Delay(5000);
+            // The body of the method is expected to contain an awaited asynchronous
+            // call.
+            // Task.FromResult is a placeholder for actual work that returns a string.
+            var today = await Task.FromResult<string>(DateTime.Now.DayOfWeek.ToString());
+
+            // The method then can process the result in some way.
+            int leisureHours;
+            if (today.First() == 'S')
+                leisureHours = 16;
+            else
+                leisureHours = 5;
+
+            await t;
+            // Because the return statement specifies an operand of type int, the
+            // method must have a return type of Task<int>.
+            return leisureHours;
+        }
         static async Task call()
         {
+            // Call and await the Task<T>-returning async method in the same statement.
+            //int result1 = await TaskOfT_MethodAsync();
+
+            // Call and await in separate statements.
+            Task<int> integerTask = TaskOfT_MethodAsync();
+
+            // You can do other work that does not rely on integerTask before awaiting.
+            await Task.Delay(100);
+
+            //int result2 = await integerTask;
+            int result2 = integerTask.Result;
+
+
             var t1 = Task.Factory.StartNew(() =>
             {
                 string ret = "";
