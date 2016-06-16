@@ -10,19 +10,19 @@ namespace RedisTest
 {
     public class RedisTest
     {
-        public void Test(string metadatafile)
+        public void Test(string metadatafile, string dir, int paral)
         {
             TestRedisCacheConfiguration config = new TestRedisCacheConfiguration();
             ConnectionMultiplexer connection = config.Connection;
             var database = connection.GetDatabase();
             var endpoints = connection.GetEndPoints();
             var server = connection.GetServer(endpoints[0]);
-            RedisJob job = new RedisJob(server, database, 256);
+            RedisJob job = new RedisJob(server, database, paral);
 
             Stopwatch stopWatch0 = new Stopwatch();
             stopWatch0.Start();
             // generate 80k dict
-            Helper.LoadJson(@"D:\temp\" + metadatafile + ".json");
+            Helper.LoadJson(dir + @"\" + metadatafile + ".json");
             if (Helper.Dict.Count == 0)
             {
                 Console.WriteLine("Load Json file failed.");
@@ -51,7 +51,7 @@ namespace RedisTest
             string elapsedTime1 = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts1.Hours, ts1.Minutes, ts1.Seconds,
                 ts1.Milliseconds / 10);
-            Console.WriteLine("Set 10k records: RunTime: " + elapsedTime1);
+            Console.WriteLine("Set 80k records: RunTime: " + elapsedTime1);
 
 
             Stopwatch stopWatch2 = new Stopwatch();
@@ -69,7 +69,7 @@ namespace RedisTest
             string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts2.Hours, ts2.Minutes, ts2.Seconds,
                 ts2.Milliseconds / 10);
-            Console.WriteLine("Get 10k records: RunTime: " + elapsedTime);
+            Console.WriteLine("Get 80k records: RunTime: " + elapsedTime);
         }
     }
 }

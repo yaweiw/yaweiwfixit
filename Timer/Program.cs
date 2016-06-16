@@ -6,14 +6,17 @@
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Timers;
+    using System.Web;
 
     public abstract class BaseClass
     {
         private static System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]> _dictionary = new System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]>();
 
-        public PropertyInfo[] Properties {
+        public PropertyInfo[] Properties
+        {
             get
             {
                 Type key = GetType();
@@ -34,7 +37,7 @@
 
     public class Derived : BaseClass
     {
-        public string abab { get; set; } 
+        public string abab { get; set; }
 
         public string[] acac { get; set; }
         public string Str { get; set; }
@@ -43,7 +46,7 @@
         public string Str2 { private get; set; }
         public int Inter2 { get; private set; }
 
-        public Derived(string _abab = "abab", string[] _acac = null )
+        public Derived(string _abab = "abab", string[] _acac = null)
         {
             abab = _abab;
             acac = _acac == null ? new string[0] : _acac;
@@ -71,7 +74,7 @@
 
         private static Stream SafeOpen(string path)
         {
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
                 return null;
             }
@@ -98,58 +101,33 @@
             }
         }
 
-        public static void Main()
+        private static async Task<int> caller(Func<int,Task<int>> fun, int j)
         {
-            List<ABC> list1 = new List<ABC>();
-            list1.Add(new ABC("a1", "b1", "c1"));
-            list1.Add(new ABC("a2", "b2", "c2"));
-            list1.Add(new ABC("a3", "b3", "c3"));
-            list1.Add(new ABC("a4", "b4", "c4"));
-            list1.Add(new ABC("aa4", "bb4", "cc4"));
+            return await fun.Invoke(j);
 
-            List<ABC> list2 = new List<ABC>();
-            list2.Add(new ABC("a1", "b1", "c1"));
-            list2.Add(new ABC("a2", "b2", "c2"));
-            list2.Add(new ABC("a3", "b3", "c3"));
-            list2.Add(new ABC("a4", "b4", "c4"));
-
-            var diff = list1.Select(list1item => new { list1item.A, list1item.C }).Except(list2.Select(list2item => new { list2item.A, list2item.C }));
-
-
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic["abab"] = "abab";
-            Console.WriteLine(dic.Count());
-
-            using (var stream = SafeOpen(@"d:\sample.html"))
-            using (var stream2 = SafeOpen(@"d:\toremove.txt"))
-            {
-
-                using (var md5 = MD5.Create())
-                {
-                    var hash = md5.ComputeHash(stream);
-                    long pos = stream.Position;
-                }
-                Console.WriteLine(stream?.Length);
-                if(stream?.Equals(stream2) == false || stream?.Equals(stream2) == null)
-                {
-                    Console.WriteLine("abab");
-                }
-            }
-
-            Derived d = new Derived();
-            PropertyInfo[] props = d.Properties;
-            string sc = GetDetails("abab", 'c'); 
-            string cs = GetDetails('c' , "abab");
-            Task mytask = new Task(() => Console.WriteLine("hi"));
-            Timer aTimer = new Timer();
-            aTimer.Elapsed += new ElapsedEventHandler((object source, ElapsedEventArgs e)=> Console.WriteLine("hi"));
-            // Set the Interval to 5 seconds.
-            aTimer.Interval = 500;
-            aTimer.Enabled = true;
-
-            Console.WriteLine("Press \'q\' to quit the sample.");
-            while (Console.Read() != 'q') ;
         }
 
+        private static async Task<int> DoAsync(int i)
+        {
+            await Task.Delay(i);
+            return i + 10;
+        }
+        public static void Main()
+        {
+            Func<int, Task<int>> valueSelector = (a) => DoAsync(a);
+            Task<int> c = caller(async (i) => await DoAsync(i), 5);
+            c.Wait();
+            int j = c.Result;
+            string pat = @"(?<left><)(?<middle>.*)(?<right>>)";
+            string s = @"Unable to resolve [!include[<title>](task-snippetsinclude[<title>](task-/tasksinclude[<title>](task-/Appinclude[<title>](task--version-and-title.md)] :Could not find a part of the path 'W:\32wuvr1w.2bw\source\windows-snippets\test\task-snippets\tasks\App-version-and-title.md'.";
+
+            Func<string> del = () => { return pat + s; };
+            var ret = del.Invoke();
+
+            string ss = HttpUtility.HtmlEncode(s);
+            Console.ReadLine();
+        }
     }
 }
+
+

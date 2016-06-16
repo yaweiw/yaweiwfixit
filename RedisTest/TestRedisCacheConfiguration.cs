@@ -19,7 +19,7 @@ namespace RedisTest
 
         public TestRedisCacheConfiguration()
         {
-            _connectionString = "yaweiredis.redis.cache.windows.net:6380,password=wUntAQkzuwJ5bGnN19qtubF0TB0QwJu9wrHxPeDwyKM=,ssl=True,abortConnect=False";
+            _connectionString = "publisheddocscache.redis.cache.windows.net:6380,password=WyhFaAaL07ZiX+k8l/ENgi5t1eGyeaAzc00nQAUncy8=,ssl=True,abortConnect=False";
             _lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
              {
                  return ConnectionMultiplexer.Connect(_connectionString);

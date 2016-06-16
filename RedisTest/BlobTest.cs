@@ -18,33 +18,46 @@ namespace RedisTest
         private CloudBlobClient _blobClient;
         private Dictionary<string, string> _currentDict;
 
-        public BlobTest()
+        public BlobTest(string dir)
         {
             _storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("StorageConnectionString"));
             // Create the blob client.
             _blobClient = _storageAccount.CreateCloudBlobClient();
             
-            using (StreamReader r = new StreamReader(@"D:\temp\metadata1kmodified.json"))
+            using (StreamReader r = new StreamReader(dir + @"\metadata80k_m.json"))
             {
                 string json = r.ReadToEnd();
                 _currentDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             }
-
+            CreateFolders(dir);
+            ClearFiles(dir);
         }
 
-        private void ClearFiles()
+        private void CreateFolders(string dir)
+        {
+            if(!Directory.Exists(dir + @"\cache"))
+            {
+                Directory.CreateDirectory(dir + @"\cache");
+            }
+            if (!Directory.Exists(dir + @"\cache\output"))
+            {
+                Directory.CreateDirectory(dir + @"\cache\output");
+            }
+        }
+
+        private void ClearFiles(string dir)
         {
             string[] files = new string[] {
-                @"D:\temp\cache\metadata1k.json",
-                @"D:\temp\cache\metadata1k.zip",
-                @"D:\temp\cache\metadata10k.json",
-                @"D:\temp\cache\metadata10k.zip",
-                @"D:\temp\cache\metadata80k.json",
-                @"D:\temp\cache\metadata80k.zip",
-                @"D:\temp\cache\output.zip",
-                @"D:\temp\cache\output\output.zip",
-                @"D:\temp\cache\output\output.json"
+                dir + @"\cache\metadata1k.json",
+                dir + @"\cache\metadata1k.zip",
+                dir + @"\cache\metadata10k.json",
+                dir + @"\cache\metadata10k.zip",
+                dir + @"\cache\metadata80k.json",
+                dir + @"\cache\metadata80k.zip",
+                dir + @"\cache\output.zip",
+                dir + @"\cache\output\output.zip",
+                dir + @"\cache\output\output.json"
             };
             foreach(var file in files)
             {
@@ -55,27 +68,27 @@ namespace RedisTest
             }
         }
 
-        private async Task DownloadAndUnzip(string blobName)
+        private async Task DownloadAndUnzip(string blobName, string dir)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference("cache");
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName + ".zip");
-            using (Stream stream = File.Create(@"D:\temp\cache\" + blobName + ".zip"))
+            using (Stream stream = File.Create(dir + @"\cache\" + blobName + ".zip"))
             {
                 await blockBlob.DownloadToStreamAsync(stream);
             }
-            ZipFile.ExtractToDirectory(@"D:\temp\cache\" + blobName + ".zip", @"D:\temp\cache\");
+            ZipFile.ExtractToDirectory(dir + @"\cache\" + blobName + ".zip", dir + @"\cache\");
             return;
         }
 
-        private async Task ZipAndUpload()
+        private async Task ZipAndUpload(string dir)
         {
             string output = JsonConvert.SerializeObject(_currentDict);
-            File.AppendAllText(@"D:\temp\cache\output\output.json", output);
-            ZipFile.CreateFromDirectory(@"D:\temp\cache\output\", @"D:\temp\cache\output.zip");
+            File.AppendAllText(dir + @"\cache\output\output.json", output);
+            ZipFile.CreateFromDirectory(dir + @"\cache\output\", dir + @"\cache\output.zip");
             CloudBlobContainer container = _blobClient.GetContainerReference("cache");
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference("output");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("output.zip");
             // Create or overwrite the "myblob" blob with contents from a local file.
-            using (var fileStream = File.OpenRead(@"D:\temp\cache\output.zip"))
+            using (var fileStream = File.OpenRead(dir + @"\cache\output.zip"))
             {
                 await blockBlob.UploadFromStreamAsync(fileStream);
             }
@@ -87,12 +100,12 @@ namespace RedisTest
             return dicOne.Except(dicTwo).Concat(dicTwo.Except(dicOne));
         }
 
-        public void Test(string metadatafile)
+        public void Test(string metadatafile, string dir)
         {
-            ClearFiles();
+            ClearFiles(dir);
             Stopwatch stopWatch0 = new Stopwatch();
             stopWatch0.Start();
-            Task t0 = DownloadAndUnzip(metadatafile);
+            Task t0 = DownloadAndUnzip(metadatafile,dir);
             t0.Wait();
             stopWatch0.Stop();
             // Get the elapsed time as a TimeSpan value.
@@ -106,7 +119,7 @@ namespace RedisTest
             Stopwatch stopWatch1 = new Stopwatch();
             stopWatch1.Start();
             Dictionary<string, string> previousDict;
-            using (StreamReader r = new StreamReader(@"D:\temp\" + metadatafile + ".json"))
+            using (StreamReader r = new StreamReader(dir + @"\" + metadatafile + ".json"))
             {
                 string json = r.ReadToEnd();
                 previousDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
@@ -125,7 +138,7 @@ namespace RedisTest
             //
             Stopwatch stopWatch2 = new Stopwatch();
             stopWatch2.Start();
-            Task z = ZipAndUpload();
+            Task z = ZipAndUpload(dir);
             z.Wait();
             stopWatch2.Stop();
             // Get the elapsed time as a TimeSpan value.
